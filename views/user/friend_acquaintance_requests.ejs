@@ -1,0 +1,56 @@
+<% include ../partials/header %>
+
+
+
+
+    <div class="below-nav-group-title">
+      Friend Requests
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/sent-requests">Sent Requests</a></div>
+      </div>
+
+
+      <div class="main-section">
+
+
+          <!-- DISPLAYING FRIENDS -->
+          <%foundUser.friend_requests.forEach(function(Guest){%>
+            <div class="main-section-item flex-content-row">
+                <a href="/<%=currentUser._id%>/explore/<%=Guest._id%>"><%=Guest.username%></a>
+            </div>
+          <%})%>
+
+
+
+
+           <!--DISPLAYING ACQUAINTANCES -->
+          <%foundUser.acquaintance_requests.forEach(function(Guest){%>
+            <div style="padding:5px;" class="main-section-item flex-content-row">
+              <a href="/<%=currentUser._id%>/explore/<%=Guest._id%>"><%=Guest.username%></a>
+            </div>
+          <%})%>
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+<% include ../partials/footer %>

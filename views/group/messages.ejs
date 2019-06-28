@@ -1,0 +1,103 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      Group Chat : <%=foundGroup.name%>
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/add-remove-members">Add/Remove Members</a></div>
+        <div class="left-nav-item group-members-text">Group Members</div>
+        <%foundGroup.members.forEach(function(Member){%>
+          <div class="left-nav-item group-member"><%=Member.username%></div>
+        <%})%>
+      </div>
+
+      <div class="main-section">
+
+        <div id="chat_messages">
+
+
+          <%MessagesObj.docs.forEach(function(Message){%>
+            <%if(Message.author._id.toString() == currentUser._id.toString()){%>
+              <div class="main-section-item current-user-message">
+            <%} else{%>
+              <div class="main-section-item">
+            <%}%>
+              <div class="main-section-item-author">
+                <%=Message.author.username%>
+              </div>
+              <%=Message.message%>
+            </div>
+          <%})%>
+
+        </div>
+
+        <%if(MessagesObj.hasNextPage || MessagesObj.hasPrevPage){%>
+          <div style="padding:7px" class="main-section-item">
+              <div class="form-flex">
+                <%if(MessagesObj.hasNextPage){%>
+                  <div>
+                    <a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/messages/<%= MessagesObj.page+1%>">Previous Chat</a>
+                  </div>
+                <%} else {%>
+                  <div></div>
+                <%}%>
+                <%if(MessagesObj.hasPrevPage){%>
+                  <div>
+                    <a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/messages/<%= MessagesObj.page-1%>">Next Chat</a>
+                  </div>
+                <%}else {%>
+                  <div></div>
+                <%}%>
+
+                <%if(MessagesObj.page != 1){%>
+                  <div>
+                    <a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/messages/1">Recent Chat</a>
+                  </div>
+                <%}else {%>
+                  <div></div>
+                <%}%>
+
+              </div>
+          </div>
+        <%}%>
+
+
+        <div class="main-section-item">
+
+            <div class="form-group">
+              <label>New Message</label>
+              <input type="text" class="form-control"  name="message" placeholder="Type Message Here...">
+            </div>
+
+            <div style="text-align:center">
+              <button style="background:none;border:none">Submit</button>
+            </div>
+
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+<div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+<div style="display:none;" id="group_id"><%=foundGroup._id%></div>
+<div style="display:none;" id="current_user_name"><%=currentUser.username%></div>
+
+<script type="text/javascript" src="/javascript/group-messages.js"></script>
+
+
+
+<% include ../partials/footer %>

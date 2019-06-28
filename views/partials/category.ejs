@@ -1,0 +1,92 @@
+            <div class="form-group">
+              Categories:
+              <div class="btn-group hierarchy-select" data-resize="auto" id="example-one">
+                <button type="button" class="btn btn-default" data-toggle="dropdown">
+                    <span class="selected-label pull-left">&nbsp;</span>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                    <div id="demo" class="dropdown-menu open">
+                        <div class="hs-searchbox">
+                            <input type="text" class="form-control" autocomplete="off">
+                        </div>
+                        <ul class="dropdown-menu inner" role="menu">
+                            <%var data_value = 1%>
+                            <%var done_categories = []%>
+                            <li data-value="<%=data_value%>" data-level="1" class="disabled">
+                                <a href="#">Categories</a>
+                            </li>
+                            <% data_value = data_value + 1 %>
+                            <%foundCategories.forEach(function(Category){
+                              if(done_categories.indexOf(Category.name)== -1){
+                                done_categories.push(Category.name)
+                                if(Category.parent_name == 'null'){%>
+                                  <%var className=""
+                                  if(Category.children_names.length>0){
+                                    className="disabled"
+                                  }%>
+                                  <li data-value="<%=data_value%>" data-level="1" class="<%=className%>">
+                                      <a href="#"><%=Category.name%></a>
+                                  </li>
+                                  <% data_value = data_value + 1 %>
+
+                                  <%var children_1 = foundCategories.filter(function(category){
+                                    return category.parent_name == Category.name
+                                  })%>
+
+                                  <%children_1.forEach(function(Child_1){%>
+                                    <%var className=""
+                                    if(Child_1.children_names.length>0){
+                                      className="disabled"
+                                    }%>
+                                    <li data-value="<%=data_value%>" data-level="2" class="<%=className%>">
+                                        <a href="#"><%=Child_1.name%></a>
+                                    </li>
+                                    <% data_value = data_value + 1 %>
+
+
+                                    <%var children_2 = foundCategories.filter(function(category){
+                                      return category.parent_name == Child_1.name
+                                    })%>
+
+                                    <%children_2.forEach(function(Child_2){%>
+                                      <%var className=""
+                                      if(Child_2.children_names.length>0){
+                                        className="disabled"
+                                      }%>
+                                      <li data-value="<%=data_value%>" data-level="3" class="<%=className%>">
+                                          <a href="#"><%=Child_2.name%></a>
+                                      </li>
+                                      <% data_value = data_value + 1 %>
+
+                                      <%var children_3 = foundCategories.filter(function(category){
+                                        return category.parent_name == Child_2.name
+                                      })%>
+
+                                      <%children_3.forEach(function(Child_3){%>
+                                        <%var className=""
+                                        if(Child_3.children_names.length>0){
+                                          className="disabled"
+                                        }%>
+                                        <li data-value="<%=data_value%>" data-level="4" class="<%=className%>">
+                                            <a href="#"><%=Child_3.name%></a>
+                                        </li>
+                                        <% data_value = data_value + 1 %>
+                                      <%})%>
+
+                                    <%})%>
+
+
+
+
+                                  <%})%>
+
+                                <%}
+                              }
+                            })%>
+                        </ul>
+                    </div>
+                    <!-- <input class="hidden hidden-field" name="example_one" readonly="readonly" aria-hidden="true" type="text"/> -->
+                </div>
+
+            </div>

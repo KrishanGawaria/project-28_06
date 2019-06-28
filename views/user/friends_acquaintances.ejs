@@ -1,0 +1,69 @@
+<% include ../partials/header %>
+
+
+
+
+    <div class="below-nav-group-title">
+      Friends and Acquaintances
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/friend-requests">Friend Requests</a></div>
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/sent-requests">Sent Requests</a></div>
+      </div>
+
+
+      <div class="main-section">
+
+        <%if(foundUser.friends.length > 0){%>
+
+          <div class="main-section-item" style="text-align:center;">
+            Friends
+          </div>
+
+
+          <!-- DISPLAYING FRIENDS -->
+          <%foundUser.friends.forEach(function(Friend){%>
+            <div style="padding:5px;" class="main-section-item flex-content-row">
+                <a href="/<%=currentUser._id%>/explore/<%=Friend._id%>"><%=Friend.username%></a>
+            </div>
+          <%})%>
+
+        <%}%>
+
+
+        <%if(foundUser.acquaintances.length>0){%>
+
+          <div class="main-section-item" style="text-align:center;">
+            Acquaintances
+          </div>
+
+           <!--DISPLAYING ACQUAINTANCES -->
+          <%foundUser.acquaintances.forEach(function(Acquaintance){%>
+            <div style="padding:5px;" class="main-section-item flex-content-row">
+              <a href="/<%=currentUser._id%>/explore/<%=Acquaintance._id%>"><%=Acquaintance.username%></a>
+            </div>
+          <%})%>
+
+        <%}%>
+
+
+
+
+
+
+      </div>
+
+
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+<% include ../partials/footer %>

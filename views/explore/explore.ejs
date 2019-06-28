@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+
+
+
+
+    <div class="below-nav-group-title">
+      Explore All Users
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+      </div>
+
+
+      <div class="main-section">
+
+        <div class="main-section-item">
+          <div class="form-group">
+            <label>Search Users</label>
+            <input type="text" class="form-control"  name="string" placeholder="Search User ...">
+          </div>
+
+          <div style="text-align:center">
+            <button style="background:none;border:none">Search</button>
+          </div>
+        </div>
+
+
+
+        <div id="display_users">
+          <!-- DISPLAYING Users -->
+          <%foundUsers.forEach(function(foundUser){%>
+            <div class="main-section-item flex-content-row">
+                <a href="/<%=currentUser._id%>/explore/<%=foundUser._id%>"><%=foundUser.name%></a>
+            </div>
+          <%})%>
+        </div>
+
+
+
+
+      </div>
+
+
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+
+    <script type="text/javascript" src="/javascript/explore-explore.js"></script>
+
+<% include ../partials/footer %>

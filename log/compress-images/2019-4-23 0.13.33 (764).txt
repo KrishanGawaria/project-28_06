@@ -1,0 +1,7 @@
+File from: [G:/project/v17 browse post/public/uploads/userPhoto-1558550613709.jpg]
+
+File to: [G:/project/v17 browse post/public/optimized/userPhoto-1558550613709.jpg]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

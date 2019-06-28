@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Konnect</title>
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/select_category/assets/pygments.css">
+    <link rel="stylesheet" href="/select_category/dist/hierarchy-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,700i" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/stylesheets/user_home.css">
+
+
+
+
+
+
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+
+  </head>
+
+  <body>
+
+
+    <% include ../partials/navbar %>
+
+
+
+
+
+    <div class="below-nav-group-title">
+      Business Categories
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+      </div>
+
+
+      <div class="main-section">
+
+
+        <div class="main-section-item">
+          <div class="form-group">
+            Click to Add Categories:
+            <div class="btn-group hierarchy-select" data-resize="auto" id="example-one">
+              <button type="button" class="btn btn-default" data-toggle="dropdown">
+                  <span class="selected-label pull-left">&nbsp;</span>
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                  <div id="demo" class="dropdown-menu open">
+                      <div class="hs-searchbox">
+                          <input type="text" class="form-control" autocomplete="off">
+                      </div>
+                      <ul class="dropdown-menu inner" role="menu">
+                          <%var data_value = 1%>
+                          <%var done_categories = []%>
+                          <li data-value="<%=data_value%>" data-level="1" class="disabled">
+                              <a href="#">Categories</a>
+                          </li>
+                          <% data_value = data_value + 1 %>
+                          <%foundCategories.forEach(function(Category){
+                            if(done_categories.indexOf(Category.name)== -1){
+                              done_categories.push(Category.name)
+
+
+
+                              if(Category.parent_name == 'null'){%>
+
+                                <%var className=""
+                                var added=''
+                                if(currentUser.interested_categories.indexOf(Category.name) !=-1){
+                                  added = "(Added)"
+                                }
+                                if(Category.children_names.length>0 || currentUser.interested_categories.indexOf(Category.name) !=-1){
+                                  className="disabled"
+                                }%>
+                                <li data-value="<%=data_value%>" data-level="1" class="<%=className%>">
+                                    <a href="#"><%=Category.name%> <%=added%></a>
+                                </li>
+                                <% data_value = data_value + 1 %>
+
+                                <%var children_1 = foundCategories.filter(function(category){
+
+                                  return category.parent_name == Category.name
+                                })%>
+
+
+                                <%children_1.forEach(function(Child_1){%>
+                                  <%var className=""
+
+                                  var added=''
+                                  if(currentUser.interested_categories.indexOf(Child_1.name) !=-1){
+                                    added = "(Added)"
+                                  }
+                                  if(Child_1.children_names.length>0 || currentUser.interested_categories.indexOf(Child_1.name) !=-1){
+                                    className="disabled"
+                                  }%>
+                                  <li data-value="<%=data_value%>" data-level="2" class="<%=className%>">
+                                      <a href="#"><%=Child_1.name%> <%=added%></a>
+                                  </li>
+                                  <% data_value = data_value + 1 %>
+
+
+                                  <%var children_2 = foundCategories.filter(function(category){
+                                    return category.parent_name == Child_1.name
+                                  })%>
+
+                                  <%children_2.forEach(function(Child_2){%>
+                                    <%var className=""
+                                    var added=''
+                                    if(currentUser.interested_categories.indexOf(Child_2.name) !=-1){
+                                      added = "(Added)"
+                                    }
+                                    if(Child_2.children_names.length>0 || currentUser.interested_categories.indexOf(Child_2.name) !=-1 ){
+                                      className="disabled"
+                                    }%>
+                                    <li data-value="<%=data_value%>" data-level="3" class="<%=className%>">
+                                        <a href="#"><%=Child_2.name%> <%=added%></a>
+                                    </li>
+                                    <% data_value = data_value + 1 %>
+
+                                    <%var children_3 = foundCategories.filter(function(category){
+                                      return category.parent_name == Child_2.name
+                                    })%>
+
+                                    <%children_3.forEach(function(Child_3){%>
+                                      <%var className=""
+                                      var added=''
+                                      if(currentUser.interested_categories.indexOf(Child_2.name) !=-1){
+                                        added = "(Added)"
+                                      }
+                                      if(Child_3.children_names.length>0||currentUser.interested_categories.indexOf(Child_3.name) !=-1){
+                                        className="disabled"
+                                      }%>
+                                      <li data-value="<%=data_value%>" data-level="4" class="<%=className%>">
+                                          <a href="#"><%=Child_3.name%> <%=added%></a>
+                                      </li>
+                                      <% data_value = data_value + 1 %>
+                                    <%})%>
+
+                                  <%})%>
+
+
+
+
+                                <%})%>
+
+                              <%}
+                            }
+                          })%>
+                      </ul>
+                  </div>
+                  <!-- <input class="hidden hidden-field" name="example_one" readonly="readonly" aria-hidden="true" type="text"/> -->
+              </div>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- DISPLAYING INTERESTED CATEGORIES OF CURRENT USER -->
+        <%currentUser.interested_categories.forEach(function(categoryName){%>
+          <div class="main-section-item flex-content-row">
+              <%=categoryName%><a href="/<%=currentUser._id%>/category/remove/<%=categoryName%>"> Remove</a>
+          </div>
+        <%})%>
+
+
+
+
+
+
+
+      </div>
+
+
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+
+    <div id="current_user_id" style="display:none"><%=currentUser._id%></div>
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcd	n.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="/select_category/dist/hierarchy-select.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example-one').hierarchySelect({
+                width: 200
+            });
+            $('#example-two').hierarchySelect({
+                hierarchy: false,
+                width: 200
+            });
+            $('#example-three').hierarchySelect({
+                hierarchy: false,
+                search: false,
+                width: 200
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="/javascript/category-category.js"></script>
+
+
+
+
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,140 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      Comments on Post
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+      <div class="main-section">
+
+
+            <div class="main-section-item">
+              <div class="main-section-item-author main-section-subitem"><a href="#"><%=foundPost.author.username%></a></div>
+              <div class="main-section-item-post main-section-subitem"><%=foundPost.post%></div>
+
+              <div class="main-section-item-post-image main-section-subitem">
+                <%foundPost.images.forEach(function(Image, index){%>
+                  <div class="main-section-item-post-image-subitem">
+                    <a href="/<%=currentUser._id%>/post/<%=foundPost._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image["base64"]%>"></a>
+                  </div>
+                <%})%>
+              </div>
+
+              <div class="main-section-item-qty-price-comments main-section-subitem">
+
+
+
+                <%if(foundPost["type_of_post"] != "casual"){%>
+                  <div class="main-section-item-qty-price-comments-subitem">Quantity: <span id="quantity"><%=foundPost.quantity%></span></div>
+                  <div class="main-section-item-qty-price-comments-subitem">Price: <span id="price"><%=foundPost.price%></span></div>
+                <%}%>
+                <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/post/<%=foundPost._id%>/share">Share</a></div>
+              </div>
+
+              <%if(foundPost["type_of_post"] == "inventory"){%>
+                <div class="main-section-item-block-form main-section-subitem">
+                  <form action="/<%=currentUser._id%>/post/<%=foundPost._id%>/block" method="POST">
+                    <div class="form-flex form-group">
+                      <input class="form-flex-item form-control" type="text" name="quantity" placeholder="Enter quantity to Block">
+                      <button class="form-flex-item btn btn-primary" style="background: black;">Block</button>
+                    </div>
+                  </form>
+                </div>
+              <%}%>
+
+
+            </div>
+
+            <div class="main-section-item" style="text-align:center">
+              Comments
+            </div>
+
+            <div id="comments_section">
+              <!-- DISPLAYING COMMENTS OF THE POST AND REPLY BUTTON BESIDE EACH COMMENT -->
+              <%foundPost.comments.forEach(function(Comment){%>
+
+                  <%
+                  // IF COMMENT IS PRIVATE, ONLY COMMENT OWNER AND POST OWNER SHOULD BE ABLE TO SEE THE COMMENT
+                  var displayComment = false
+                  if(Comment.private_tag == true){
+                    if(Comment.author._id.toString() == currentUser._id.toString() || foundPost.author._id.toString() == currentUser._id.toString()){
+                      displayComment = true
+                    }
+                  } else{
+                    displayComment = true
+                  }
+                  %>
+
+                  <%if(displayComment){%>
+
+
+                    <%if(Comment.author._id.toString() == currentUser._id.toString()){%>
+                      <div class="main-section-item current-user-message">
+                    <%} else{%>
+                      <div class="main-section-item">
+                    <%}%>
+                        <div style="font-weight:bold;">
+                          <a href="#"><%=Comment.author.username%></a>
+                        </div>
+                        <div>
+                          <%=Comment.comment%>
+                        </div>
+                        <div style="text-align:right;">
+                          <a href="/<%=currentUser._id%>/post/<%=foundPost._id%>/comment/<%=Comment._id%>/reply">Reply</a>
+                        </div>
+                      </div>
+
+
+
+                  <%}%>
+
+
+              <%})%>
+            </div>
+
+            <div class="main-section-item">
+
+              <form>
+                <div class="form-group">
+                  <label>New Comment</label>
+                  <input type="text" class="form-control"  name="comment" id="comment" placeholder="Type Comment Here..." required>
+                </div>
+                <div class="form-group">
+                  <input type="radio" name="private_tag" value="true"> Private Comment
+                  <input type="radio" name="private_tag" value="false" style="margin-left:20px;" checked> Public Comment
+                </div>
+
+                <div style="text-align:center">
+                  <button style="background:none;border:none">Submit</button>
+                </div>
+              </form>
+
+
+
+            </div>
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+<div style="display:none" id="current_user_id"><%=currentUser._id%></div>
+<div style="display:none" id="post_id"><%=foundPost._id%></div>
+<div style="display:none" id="current_user_name"><%=currentUser.username%></div>
+
+<script type="text/javascript" src="/javascript/comment-comments.js"></script>
+
+<% include ../partials/footer %>

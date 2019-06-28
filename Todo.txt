@@ -1,0 +1,79 @@
+		1.Create Categories
+
+		2. While sharing inventory, user can select show_access to share it as post:
+
+
+
+			friends
+			acquaintances
+			broadcast -> If user selects broadcast, he must select category, and the inventory will get pushed into the category-pipe.
+
+		Posts to be show to the user:
+
+			1.	Posts of my friends according to show_access given by them
+			2.	Posts of my acquaintances according to show_access given by them
+			3.	Posts of my interested category :
+					a. Select those posts which are neither of my friend nor acquaintance nor me.
+					  (By default, only those posts are going to pipeline, which are broadcasted.)
+					  (If there are suppose 100 posts, choose 5 randomly)
+
+
+
+
+1. While Registering, user has to specify his interests in categories
+2. Make Profile Page of Current User
+3. Modify Home Page
+
+--------------------------------------------------------------------------------------
+Posts to be show to the user:
+
+	1.	Posts of my friends according to show_access given by them
+	2.	Posts of my acquaintances according to show_access given by them
+	3.	Posts of my interested category :
+			a. Select those posts which are neither of my friend nor acquaintance nor me.
+				(By default, only those posts are going to pipeline, which are broadcasted.)
+				(If there are suppose 100 posts, choose 5 randomly)
+	4. Activity Logs of friends and acquaintances
+
+Pagination in Showing Posts
+Pagination in group-chat
+Pagination in comments
+Pagination in replies
+------------------------------------------------------------------------------------
+Create a Pipe Schema that has the following structure:
+
+	show_access_ids : [String]
+	activity_owner : {User}
+	activity_caption : String
+	time : Date
+	post : {Post}
+	category_name: String
+
+-------------------------------------------------------------------------------------
+
+	1. Push Category posts into Pipe. Pipe should be single source of truth for News Feed.
+	2. If a user removes someone as friend or acquaintance, remove him from show_access of that user's posts.
+	3. If a user accepts someone as friend or acquaintance, add him into show_access of that user's posts.
+
+
+------------------------------------------------------------------------------------------
+1. UI Login Page
+2. UI Register Page
+3. Make sure everything in the header works
+	4. UI Blocked By Others
+	5. UI Blocked By Me
+	6. UI Others Interests
+	7. UI My Interests
+	8. Take care of where to show quantity and price
+
+--------------------------------------------------------------------------------------------
+
+enquire
+likes
+my wishlist
+notifications
+attributes
+categories: A user can select parent category while posting as well as a part of his interest.
+
+APIs to load real-time posts
+APIs to load read-time messages/chat

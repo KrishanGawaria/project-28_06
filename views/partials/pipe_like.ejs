@@ -1,0 +1,12 @@
+<%var liked = false
+Pipe.post.likes.forEach(function(user){
+  if(user.toString() == currentUser._id.toString()){
+    liked = true
+  }
+})%>
+
+<%if(liked){%>
+  <div class="main-section-item-qty-price-comments-subitem"><span class="like" id="<%=Pipe.post._id%>" style="font-weight:bold;">Liked</span> (<span class="number-<%=Pipe.post._id%>"><%=Pipe.post.likes.length%></span>)</div>
+<%} else {%>
+  <div class="main-section-item-qty-price-comments-subitem"><span class="dislike" id="<%=Pipe.post._id%>">Like</span> (<span class="number-<%=Pipe.post._id%>"><%=Pipe.post.likes.length%></span>)</div>
+<%}%>

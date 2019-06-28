@@ -1,0 +1,13 @@
+<%var enquired = false
+Post.enquires.forEach(function(user){
+  if(user.toString() == currentUser._id.toString()){
+    enquired = true
+  }
+})%>
+
+
+<%if(enquired){%>
+  <div class="main-section-item-qty-price-comments-subitem enquired" id="<%=Post._id%>">Enquired</div>
+<%} else {%>
+  <div class="main-section-item-qty-price-comments-subitem enquire" id="<%=Post._id%>">Enquire</div>
+<%}%>

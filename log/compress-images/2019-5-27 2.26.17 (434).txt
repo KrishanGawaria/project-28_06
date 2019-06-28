@@ -1,0 +1,7 @@
+File from: [G:/project/v23/routes/public/uploads/userPhoto-1561582577421.jpg]
+
+File to: [G:/project/v23/routes/public/optimized/userPhoto-1561582577421.jpg]
+
+Compression algorithm: [-]
+
+Description: File does not exist!

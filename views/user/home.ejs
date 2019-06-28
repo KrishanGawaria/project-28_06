@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Konnect</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/select_category/assets/pygments.css">
+    <link rel="stylesheet" href="/select_category/dist/hierarchy-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,700i" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/stylesheets/user_home.css">
+
+    <link rel="stylesheet" type="text/css" href="/browse_post/file.css">
+
+
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+
+
+    <% include ../partials/navbar %>
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/explore">Explore</a></div>
+        <!-- <div class="left-nav-item"><a href="/<%=currentUser._id%>/shared-inventory">Shared By Others</a></div> -->
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/blocked-by-others">Blocked By Others</a></div>
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/others-interests">Others Interests</a></div>
+      </div>
+
+      <div class="main-section">
+
+
+        <div class="main-section-item">
+
+          <form enctype="multipart/form-data">
+
+            <div class="form-group">
+              <label>Write Post</label>
+              <textarea class="form-control" name="post" rows="4" cols="80" placeholder="Type Post Here..."></textarea>
+            </div>
+
+
+            <div class="custom-file">
+              <input type="file" name="userPhoto" multiple>
+
+            </div>
+
+
+
+            <div class="form-group" style="margin-top:20px;">
+              Show Acess:
+              <input style="margin-left:10px;" type="checkbox" name="friend" value="friend" checked>Friends
+              <input style="margin-left:10px;" type="checkbox" name="acquaintance" value="acquaintance">Acquaintances
+              <input style="margin-left:10px;" type="checkbox" name="unconnected" value="unconnected">Broadcast
+            </div>
+
+
+            <% include ../partials/category %>
+
+            <div id="category_element">
+              <div id="category_checkbox"></div>
+            </div>
+
+            <div class="form-group">
+              Groups:
+              <%foundGroups.forEach(function(Group){%>
+                <input style="margin-left:10px;" type="checkbox" name="Group-<%=Group._id%>" value="<%=Group.name%>"><%=Group.name%>
+              <%})%>
+
+            </div>
+
+
+            <div style="text-align:center">
+              <button id="create_post" style="background:none;border:none">Submit</button>
+            </div>
+
+
+
+
+
+          </form>
+        </div>
+
+
+
+        <div id="display_posts">
+
+        </div>
+
+        <% include ../partials/loading_post %>
+
+
+
+
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+        <ul class="nav nav-list nav-menu-list-style">
+                        <li>
+                        	<label class="tree-toggle nav-header glyphicon-icon-rpad">
+    	                    	Browse Post
+    	                        <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span>
+                            </label>
+                            <ul class="nav nav-list tree bullets">
+
+                                <li><label class="tree-toggle nav-header">Categories
+                                  <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span>
+                                </label>
+                                    <ul class="nav nav-list tree">
+                                        <%currentUser.interested_categories.forEach(function(category){%>
+                                          <li><a href="/<%=currentUser._id%>/category/<%=category%>"><%=category%></a></li>
+                                        <%})%>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="nav nav-list tree bullets">
+
+                                <li><label class="tree-toggle nav-header">Friends & Acquaintances
+                                  <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span>
+                                </label>
+                                    <ul class="nav nav-list tree">
+                                        <li><a href="/<%=currentUser._id%>/friends-acquaintances/posts">All Posts</a></li>
+                                        <%currentUser.interested_categories.forEach(function(category){%>
+                                          <li><a href="/<%=currentUser._id%>/category/<%=category%>/friends-acquaintances"><%=category%></a></li>
+                                        <%})%>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script type="text/javascript" src="/javascript/users-home.js"></script>
+
+
+
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcd	n.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="/select_category/dist/hierarchy-select.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example-one').hierarchySelect({
+                width: 200
+            });
+            $('#example-two').hierarchySelect({
+                hierarchy: false,
+                width: 200
+            });
+            $('#example-three').hierarchySelect({
+                hierarchy: false,
+                search: false,
+                width: 200
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript" src="/browse_post/file.js">
+    </script>
+
+
+
+
+<% include ../partials/footer %>

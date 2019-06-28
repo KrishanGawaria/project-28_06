@@ -1,0 +1,115 @@
+<% include ../partials/header %>
+
+
+
+    <div class="below-nav-group-title">
+      My Favourites
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+      </div>
+
+      <div class="main-section">
+
+
+
+
+
+          <%foundPipes.forEach(function(Pipe){%>
+            <div class="main-section-item">
+              <div class="main-section-item-author main-section-subitem"><%=Pipe.activity_caption%></div>
+              <div class="main-section-item-author main-section-subitem"><a href="#"><%=Pipe.post.author.username%></a></div>
+              <div class="main-section-item-post main-section-subitem"><%=Pipe.post.post%></div>
+
+              <div class="main-section-item-post-image main-section-subitem">
+                <%Pipe.post.images.forEach(function(Image, index){%>
+                  <div class="main-section-item-post-image-subitem">
+                    <a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image["base64"]%>"></a>
+                  </div>
+                <%})%>
+              </div>
+
+              <div class="main-section-item-qty-price-comments main-section-subitem">
+
+                <% include ../partials/pipe_like %>
+
+                <%if(Pipe.post["type_of_post"] == "inventory"){%>
+                  <div class="main-section-item-qty-price-comments-subitem">Quantity: <span id="quantity"><%=Pipe.post.quantity%></span></div>
+                  <div class="main-section-item-qty-price-comments-subitem">Price: <span id="price"><%=Pipe.post.price%></span></div>
+                <%}%>
+                <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/comment">Comments</a></div>
+                <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/share">Share</a></div>
+
+                <% include ../partials/pipe_enquire %>
+                <% include ../partials/pipe_favourite %>
+
+              </div>
+
+              <%if(Pipe.post["type_of_post"] == "inventory"){%>
+                <div class="main-section-item-block-form main-section-subitem">
+                  <form action="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/block" method="POST">
+                    <div class="form-flex form-group">
+                      <input class="form-flex-item form-control" type="text" name="quantity" placeholder="Enter quantity to Block">
+                      <button class="form-flex-item btn btn-primary" style="background: black;">Block</button>
+                    </div>
+                  </form>
+                </div>
+              <%}%>
+
+
+            </div>
+
+          <%})%>
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+
+    <script type="text/javascript" src="/javascript/favourite-my_favourites.js"></script>
+
+
+
+
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      Posts of Friends and Acquaintances
+    </div>
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+      <div class="main-section">
+
+        <div id="display_posts">
+
+        </div>
+
+        <% include ../partials/loading_post %>
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+<script type="text/javascript" src="/javascript/user-fr_acq_posts.js"></script>
+
+
+
+
+
+
+<% include ../partials/footer %>

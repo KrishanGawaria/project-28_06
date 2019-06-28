@@ -1,0 +1,54 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      My Groups
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+      </div>
+
+      <div class="main-section">
+
+
+        <div class="main-section-item">
+          <form action="/<%=currentUser._id%>/my-groups" method="post">
+            <div class="form-group">
+              <label>Create Group</label>
+              <input type="text" class="form-control" name="name" placeholder="Type Group Name ..." required>
+            </div>
+
+            <div style="text-align:center">
+              <button style="background:none;border:none">Create</button>
+            </div>
+
+          </form>
+        </div>
+
+
+
+
+          <%foundUser.groups.forEach(function(Group){%>
+            <div class="main-section-item">
+              <a href="/<%=currentUser._id%>/my-groups/<%=Group._id%>"><%=Group.name%></a>
+            </div>
+          <%})%>
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+<% include ../partials/footer %>

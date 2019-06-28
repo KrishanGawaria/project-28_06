@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Konnect</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/select_category/assets/pygments.css">
+    <link rel="stylesheet" href="/select_category/dist/hierarchy-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,700i" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/stylesheets/user_home.css">
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+
+  </head>
+
+  <body>
+
+
+    <% include ../partials/navbar %>
+
+
+
+    <div class="below-nav-group-title">
+      Sharing inventory
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+      </div>
+
+      <div class="main-section">
+
+
+        <div class="main-section-item">
+          <form action="">
+            <div class="form-group">
+              <label>Edit Inventory and Share</label>
+              <textarea class="form-control" name="inventory" rows="4" cols="80"><%=foundInventory.post%></textarea>
+            </div>
+
+            <div class="main-section-item-post-image main-section-subitem">
+              <%foundInventory.images.forEach(function(Image, index){%>
+                <div class="main-section-item-post-image-subitem">
+                  <a href="/<%=currentUser._id%>/post/<%=foundInventory._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image["base64"]%>"></a>
+                </div>
+              <%})%>
+            </div>
+
+            <div class="form-flex">
+
+              <div class="form-group form-flex-item">
+                Price<input type="text" class="form-control"  name="price" value="<%=foundInventory.price%>">
+              </div>
+
+              <div class="form-group form-flex-item">
+                Quantity<input type="text" class="form-control"  name="quantity" value="<%=foundInventory.quantity%>">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+              Show Acess:
+              <input style="margin-left:10px;" type="checkbox" name="friend" value="friend" checked>Friends
+              <input style="margin-left:10px;" type="checkbox" name="acquaintance" value="acquaintance">Acquaintances
+              <input style="margin-left:10px;" type="checkbox" name="unconnected" value="unconnected">Broadcast
+            </div>
+
+            
+            <% include ../partials/category %>
+
+
+
+            <div id="category_element">
+              <div id="category_checkbox"></div>
+            </div>
+
+            <div class="form-group">
+              Groups:
+              <%foundUser.groups.forEach(function(Group){%>
+                <input style="margin-left:10px;" type="checkbox" name="Group-<%=Group._id%>" value="<%=Group.name%>"><%=Group.name%>
+              <%})%>
+
+            </div>
+
+            <div class="form-group">
+              Friends:
+              <%foundUser.friends.forEach(function(Friend){%>
+                <input style="margin-left:10px;" type="checkbox" name="Friend-<%=Friend._id%>" value="<%=Friend.username%>"><%=Friend.username%>
+              <%})%>
+
+            </div>
+
+
+            <div style="text-align:center">
+              <button id="create_post" style="background:none;border:none">Submit</button>
+            </div>
+
+
+
+
+
+          </form>
+        </div>
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+    <div style="display:none;" id="found_inventory_id"><%=foundInventory._id%></div>
+
+
+    <script type="text/javascript" src="/javascript/inventory-share.js">
+
+    </script>
+
+
+
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcd	n.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="/select_category/dist/hierarchy-select.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example-one').hierarchySelect({
+                width: 200
+            });
+            $('#example-two').hierarchySelect({
+                hierarchy: false,
+                width: 200
+            });
+            $('#example-three').hierarchySelect({
+                hierarchy: false,
+                search: false,
+                width: 200
+            });
+        });
+    </script>
+
+
+
+
+
+
+<% include ../partials/footer %>

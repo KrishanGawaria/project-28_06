@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      Notifications
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+      <div class="main-section">
+
+        <%Notifications.forEach(function(Notification){%>
+          <a href="/<%=currentUser._id%><%=Notification.event_link%>">
+            <div class="main-section-item" style="text-align:center">
+              <span><%=Notification.event_caption%></span>
+            </div>
+          </a>
+        <%})%>
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+<script type="text/javascript" src="/javascript/comment-comments.js"></script>
+
+<% include ../partials/footer %>

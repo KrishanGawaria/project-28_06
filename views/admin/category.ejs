@@ -1,0 +1,13 @@
+<h1>Category Page</h1>
+
+<form action="/admin/category" method="post">
+  <input type="text" name="name" placeholder="Category Name">
+  <input type="text" name="parent_name" placeholder="Parent Name">
+  <button>Create</button>
+</form>
+
+<h3>Categories:</h3>
+
+<%foundCategories.forEach(function(Category){%>
+  <p><%=Category.name%></p>
+<%})%>

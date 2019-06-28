@@ -1,0 +1,13 @@
+<%var favourited = false
+Pipe.favourites.forEach(function(user){
+  if(user.toString() == currentUser._id.toString()){
+    favourited = true
+  }
+})%>
+
+
+<%if(favourited){%>
+  <div class="main-section-item-qty-price-comments-subitem favourited" id="<%=Pipe._id%>">Favourited</div>
+<%} else {%>
+  <div class="main-section-item-qty-price-comments-subitem favourite" id="<%=Pipe._id%>">Favourite</div>
+<%}%>

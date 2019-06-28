@@ -1,0 +1,79 @@
+<% include ../partials/header %>
+
+
+    <div class="below-nav-group-title">
+      My Inventories
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/shared-inventory-by-me">Shared By Me</a></div>
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/blocked-by-me">Blocked By Me</a></div>
+      </div>
+
+
+
+      <div class="main-section">
+
+
+
+        <div class="main-section-item">
+          <form action="/<%=currentUser._id%>/inventory" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Create Inventory</label>
+              <textarea class="form-control" name="inventory" rows="4" cols="80" placeholder="Write about yout inventory..." required></textarea>
+            </div>
+
+
+            <div class="custom-file">
+              <input type="file" name="userPhoto" multiple>
+
+            </div>
+
+            <div class="form-flex">
+
+              <div class="form-group form-flex-item">
+                <input type="text" class="form-control"  name="quantity" placeholder="Quantity">
+              </div>
+
+              <div class="form-group form-flex-item">
+                <input type="text" class="form-control"  name="price" placeholder="Price Per Quantity">
+              </div>
+            </div>
+
+
+            <div style="text-align:center">
+              <button style="background:none;border:none">Submit</button>
+            </div>
+
+
+
+
+
+          </form>
+        </div>
+
+        <div id="display_posts">
+
+        </div>
+
+        <% include ../partials/loading_post %>
+
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+    <script type="text/javascript" src="/javascript/inventory-inventories.js"></script>
+
+<% include ../partials/footer %>

@@ -1,0 +1,124 @@
+<% include ../partials/header %>
+
+
+
+    <div class="below-nav-group-title">
+      Group: <%=foundGroup.name%>
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/messages/1">Group Messages</a></div>
+
+        <%if(foundGroup.owner.toString() == currentUser._id.toString()){%>
+          <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/add-remove-members">Add/Remove Members</a></div>
+          <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/delete">Delete Group</a></div>
+        <%} else{%>
+          <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/add-remove-members">Add Members</a></div>
+        <%}%>
+
+        <div class="left-nav-item"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/rename">Rename Group</a></div>
+
+        <div class="left-nav-item group-members-text">Group Members</div>
+        <%foundGroup.members.forEach(function(Member){%>
+          <div class="left-nav-item group-member"><%=Member.username%></div>
+        <%})%>
+
+      </div>
+
+
+
+      <div class="main-section">
+
+        <div class="main-section-item">
+          <form action="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/post%>" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Write Post for this group</label>
+              <textarea class="form-control" name="post" rows="4" cols="80" placeholder="Type Post Here..." required></textarea>
+            </div>
+
+
+            <div class="custom-file">
+              <input type="file" name="userPhoto" multiple>
+
+            </div>
+
+
+            <div style="text-align:center">
+              <button style="background:none;border:none">Submit</button>
+            </div>
+
+
+          </form>
+        </div>
+
+
+
+
+
+        <%foundPipes.forEach(function(Pipe){%>
+          <div class="main-section-item">
+            <div class="main-section-item-author main-section-subitem"><%=Pipe.activity_caption%></div>
+            <div class="main-section-item-author main-section-subitem"><a href="#"><%=Pipe.post.author.username%></a></div>
+            <div class="main-section-item-post main-section-subitem"><%=Pipe.post.post%></div>
+
+            <div class="main-section-item-post-image main-section-subitem">
+              <%Pipe.post.images.forEach(function(Image, index){%>
+                <div class="main-section-item-post-image-subitem">
+                  <a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image["base64"]%>"></a>
+                </div>
+              <%})%>
+            </div>
+
+            <div class="main-section-item-qty-price-comments main-section-subitem">
+
+              <% include ../partials/pipe_like %>
+
+              <%if(Pipe.post["type_of_post"] != "casual"){%>
+                <div class="main-section-item-qty-price-comments-subitem">Quantity: <span id="quantity"><%=Pipe.post.quantity%></span></div>
+                <div class="main-section-item-qty-price-comments-subitem">Price: <span id="price"><%=Pipe.post.price%></span></div>
+              <%}%>
+              <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/comment">Comments</a></div>
+              <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/share">Share</a></div>
+              <%if(currentUser._id.toString() == Pipe.activity_owner._id.toString()){%>
+                  <div class="main-section-item-qty-price-comments-subitem"><a href="/<%=currentUser._id%>/my-groups/<%=foundGroup._id%>/post/<%=Pipe.post._id%>/delete">Delete</a></div>
+              <%}%>
+
+              <% include ../partials/pipe_enquire %>
+              <% include ../partials/pipe_favourite %>
+
+            </div>
+
+
+            <%if(Pipe.post["type_of_post"] == "inventory"){%>
+              <div class="main-section-item-block-form main-section-subitem">
+                <form action="/<%=currentUser._id%>/post/<%=Pipe.post._id%>/block" method="POST">
+                  <div class="form-flex form-group">
+                    <input class="form-flex-item form-control" type="text" name="quantity" placeholder="Enter quantity to Block">
+                    <button class="form-flex-item btn btn-primary" style="background: black;">Block</button>
+                  </div>
+                </form>
+              </div>
+            <%}%>
+
+
+          </div>
+
+        <%})%>
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+    <div id="group_id" style="display:none;"><%=foundGroup._id%></div>
+
+    <script type="text/javascript" src="/javascript/group-home.js"></script>
+
+<% include ../partials/footer %>

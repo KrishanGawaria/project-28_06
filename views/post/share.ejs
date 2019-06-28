@@ -1,0 +1,88 @@
+<% include ../partials/header %>
+
+    <div class="below-nav-group-title">
+      Sharing Post with ...
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+      <div class="main-section">
+
+
+            <div class="main-section-item">
+              <div class="main-section-item-author main-section-subitem"><a href="#"><%=foundPost.author.username%></a></div>
+              <div class="main-section-item-post main-section-subitem"><%=foundPost.post%></div>
+
+              <div class="main-section-item-post-image main-section-subitem">
+                <%foundPost.images.forEach(function(Image, index){%>
+                  <div class="main-section-item-post-image-subitem">
+                    <a href="/<%=currentUser._id%>/post/<%=foundPost._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image["base64"]%>"></a>
+                  </div>
+                <%})%>
+              </div>
+
+              <div class="main-section-item-qty-price-comments main-section-subitem">
+                <div class="main-section-item-qty-price-comments-subitem">Quantity: <span id="quantity"><%=foundPost.quantity%></span></div>
+                <div class="main-section-item-qty-price-comments-subitem">Price: <span id="price"><%=foundPost.price%></span></div>
+
+              </div>
+
+
+
+
+            </div>
+
+            <div class="main-section-item" style="text-align:center">
+              Sharing with ...
+            </div>
+
+
+            <div class="main-section-item">
+              <form action="/<%=currentUser._id%>/post/<%=foundPost._id%>/share" method="post">
+
+                  <div class="form-group">
+
+                    <input style="margin-left:10px;" type="checkbox" name="Post-Post" value="Post-Post" checked>
+                    Share as Post <span style="color:blue">(Your friends and acquaintances will be able to see in their news feed)</span>
+
+
+                  </div>
+
+                  <div class="form-group">
+                    Groups:
+                    <%foundUser.groups.forEach(function(Group){%>
+                      <input style="margin-left:10px;" type="checkbox" name="Group-<%=Group._id%>" value="<%=Group.name%>"><%=Group.name%>
+                    <%})%>
+
+                  </div>
+
+                  <div style="text-align:center">
+                    <button style="background:none;border:none">Share</button>
+                  </div>
+
+              </form>
+
+            </div>
+
+
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+
+
+    <div class="below-nav-group-title">
+      Posts of Category : <%=categoryName%>
+    </div>
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+      <div class="main-section">
+
+        <div id="display_posts">
+
+        </div>
+
+        <% include ../partials/loading_post %>
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+
+    <div style="display:none;" id="current_user_id"><%=currentUser._id%></div>
+    <div style="display:none;" id="category_name"><%=categoryName%></div>
+
+<script type="text/javascript" src="/javascript/category-category_posts.js">
+</script>
+
+
+
+
+
+
+<% include ../partials/footer %>

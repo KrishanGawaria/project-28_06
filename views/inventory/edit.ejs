@@ -1,0 +1,68 @@
+<% include ../partials/header %>
+
+
+
+    <div class="below-nav-group-title">
+      Editing Inventory
+    </div>
+
+
+
+    <div class="middle-row-section">
+
+      <div class="left-nav">
+
+
+      </div>
+
+
+
+      <div class="main-section">
+
+        <div class="main-section-item">
+          <form action="/<%=currentUser._id%>/inventory/<%=foundInventory._id%>/edit%>" method="post">
+            <div class="form-group">
+              <label>Edit Inventory Here ...</label>
+              <input type="text" class="form-control" name="post" value="<%=foundInventory.post%>">
+            </div>
+
+
+            <div class="main-section-item-post-image main-section-subitem">
+              <%foundInventory.images.forEach(function(Image, index){%>
+                <div class="main-section-item-post-image-subitem">
+                  <a href="/<%=currentUser._id%>/post/<%=foundInventory._id%>/image/<%=index%>"><img width=500px src="data:image/png;base64,<%=Image['base64']%>"></a>
+                </div>
+              <%})%>
+            </div>
+
+
+            <div class="form-flex">
+              <div class="form-group form-flex-item">
+                Price<input type="text" class="form-control"  name="price" value="<%=foundInventory.price%>">
+              </div>
+              <div class="form-group form-flex-item">
+                Quantity<input type="text" class="form-control"  name="quantity" value="<%=foundInventory.quantity%>">
+              </div>
+            </div>
+            <div style="text-align:center">
+              <button style="background:none;border:none">Edit</button>
+            </div>
+
+
+          </form>
+        </div>
+
+
+
+
+
+
+      </div>
+
+      <div class="right-nav">
+
+      </div>
+
+    </div>
+
+<% include ../partials/footer %>
